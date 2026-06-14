@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción Ácido-Base - Clase Magistral</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- ESTILOS MAESTROS DE LA PRESENTACIÓN --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #cbd5e1; overflow: hidden; font-family: 'DM Sans', sans-serif; }
+        .presentation-container { height: 100vh; position: relative; width: 100vw; }
+        .slide-container { background-color: #f3f0df; display: none; flex-direction: column; height: 100%; padding: 40px 80px; position: absolute; width: 100%; }
+        .slide-container.active { display: flex; }
+
+        /* NAVEGACIÓN Y FOOTER */
+        .nav-btn { background-color: rgba(0, 80, 136, 0.1); border: none; border-radius: 50%; color: #005088; cursor: pointer; font-size: 3rem; padding: 20px; position: fixed; top: 50%; transform: translateY(-50%); transition: all 0.3s; z-index: 1000; }
+        .nav-btn:hover { background-color: #005088; color: white; }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+        .footer-nav { align-items: center; bottom: 20px; display: flex; justify-content: space-between; padding: 0 40px; position: fixed; width: 100%; z-index: 1000; }
+        .slide-counter { background-color: #005088; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; padding: 6px 18px; }
+        .author-tag { color: #005088; font-weight: 700; font-size: 16px; opacity: 0.8; }
+
+        /* CONTENIDO Y TIPOGRAFÍA */
+        .slide-title { border-left: 10px solid #11caa0; color: #005088; font-family: 'Merriweather', serif; font-size: 38px; font-weight: 700; margin-bottom: 20px; padding-left: 20px; text-align: left; }
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; justify-content: center; align-items: center; width: 100%; height: calc(100% - 60px); }
+        .two-column { align-items: center; display: grid; gap: 40px; grid-template-columns: 1fr 1fr; width: 100%; height: 100%; }
+        .image-wrapper { align-items: center; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; height: 80vh; width: 100%; justify-content: center; overflow: hidden; padding: 15px; }
+        .image-wrapper img { height: 100%; width: 100%; mix-blend-mode: multiply; object-fit: contain; }
+        .ph-highlight { background-color: #11caa0; border-radius: 8px; color: white; display: inline-block; font-weight: 700; padding: 4px 14px; white-space: nowrap; }
+        blockquote { color: #005088; font-family: 'Merriweather', serif; font-size: 48px; font-weight: 700; line-height: 1.3; margin: 0 auto; max-width: 900px; position: relative; text-align: center; }
+        blockquote::before { color: #11caa0; content: '“'; font-size: 150px; left: -80px; opacity: 0.2; position: absolute; top: -60px; }
+
+        /* PORTADA PERSONALIZADA */
+        .title-slide-content h1 { font-size: 80px; color: #11caa0; font-family: 'Merriweather'; margin-bottom: 15px; }
+        .nav-instr { background: rgba(255, 255, 255, 0.15); color: #ffffff; padding: 14px 28px; border-radius: 10px; font-weight: 700; margin-top: 35px; display: inline-block; font-size: 19px; border: 2px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .author-main { font-size: 26px; color: #f3f0df; font-weight: 500; margin-top: 15px; }
+
+        /* TRANSICIÓN "JUEGA Y APRENDE" */
+        .play-learn-text { font-size: 100px; color: #11caa0; font-family: 'Merriweather', serif; font-weight: 700; text-align: center; text-shadow: 2px 2px 0px #005088; }
+
+        /* DISEÑO ESPECIAL DIAPOSITIVA 29 (IBUPROFENO) */
+        .ibu-layout { grid-template-columns: 1.6fr 0.4fr !important; }
+        .ibu-large-text { font-size: 32px !important; line-height: 1.4 !important; color: #005088 !important; margin-bottom: 30px !important; }
+        .ibu-item { background: white; border-radius: 16px; border-left: 10px solid #005088; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); font-size: 26px; color: #334155; }
+        .ibu-item-alt { border-left-color: #11caa0 !important; }
+        .ibu-image-box { height: 380px !important; padding: 10px; background: white; border: 1px solid #cbd5e1; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+
+        /* ESTILOS ORIGINALES DEL JUEGO (REVERTIDOS) */
+        .game-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 900px; }
+        .image-stage { position: relative; width: 100%; max-width: 850px; margin: 0 auto; aspect-ratio: 16 / 9; }
+        .ph-image { width: 100%; height: 100%; object-fit: contain; display: none; }
+        .ph-image.active { display: block; }
+        #structure-overlay { position: absolute; top: 11%; left: 4.2%; width: 27%; display: none; pointer-events: none; z-index: 5; }
+        #structure-overlay.overlay-large { width: 35.1%; left: -1.8%; }
+        .slider-container-game { position: relative; margin: 20px auto; width: 90%; }
+        .game-slider { width: 100%; cursor: pointer; }
+        .slider-labels { position: relative; width: 100%; margin: 10px auto 0 auto; height: 30px; }
+        .slider-labels span { position: absolute; font-weight: bold; color: #7f8c8d; font-size: 14px; transform: translateX(-50%); cursor: pointer; }
+        .slider-labels span.active { color: #2980b9; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+    <button class="nav-btn prev-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="nav-btn next-btn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+
+    <div class="footer-nav">
+        <div class="author-tag">Creado por Dr. Jean-Luc Bertrand</div>
+        <div class="slide-counter" id="page-num">1 / 30</div>
+    </div>
+
+    <div class="slide-container active" style="background: linear-gradient(rgba(0, 80, 136, 0.96), rgba(0, 80, 136, 0.96)); justify-content: center; align-items: center;">
+        <div class="content-area title-slide-content" style="text-align: center;">
+            <h1>Ácido Salicílico</h1>
+            <p style="font-size: 34px; opacity: 0.9; color: #f3f0df;">Predicción del Equilibrio y Especiación Ácido-Base</p>
+            <div class="author-main">Creado por Dr. Jean-Luc Bertrand</div>
+            <div style="background: #11caa0; height: 5px; margin: 30px auto; width: 150px;"></div>
+            <div class="nav-instr"><i class="fa-solid fa-circle-info" style="margin-right: 8px;"></i> Aprete las flechas de los costados derecho o izquierdo para avanzar en esta clase</div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2 class="slide-title">Evaluación de Predominancia</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3 style="font-size: 38px; color: #005088; margin-bottom: 25px;">¿Qué estructura mayoritaria de ácido salicílico se encuentra a <span class="ph-highlight">pH = 5</span>?</h3>
+                    <p style="color: #64748b; font-style: italic; margin-bottom: 20px; font-size: 24px;">Datos Termodinámicos:</p>
+                    <ul style="list-style: none; font-size: 26px; color: #334155;">
+                        <li style="margin-bottom: 15px;"><i class="fa-solid fa-flask" style="color: #11caa0; margin-right: 15px;"></i> pKa₁ = 2.90</li>
+                        <li><i class="fa-solid fa-flask" style="color: #11caa0; margin-right: 15px;"></i> pKa₂ = 13.80</li>
+                    </ul>
+                </div>
+                <div class="image-wrapper"><img src="acido_salicilico.png"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container"><h2 class="slide-title">Ruta de Disociación</h2><div class="content-area"><div class="image-wrapper"><img src="disociacion_salicilico.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 0: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 0.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 0: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="0_old.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 2: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 2.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 2: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="2_old.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 2.90: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 2_90.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 2.90: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="2_90_old.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 6: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 6.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 6: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="6_old.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 13: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 13.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 13: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="13_old.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 13.80: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 13_80.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 13.80: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="13_80_old.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 14: Cálculo</h2><div class="content-area"><div class="image-wrapper"><img src="calculo ph 14.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pH = 14: Representación</h2><div class="content-area"><div class="image-wrapper"><img src="14_old.png"></div></div></div>
+    
+    <div class="slide-container"><div class="content-area"><blockquote>"Ahora bien, ¿Es necesario hacer los cálculos matemáticos?"</blockquote></div></div>
+    
+    <div class="slide-container">
+        <h2 class="slide-title">Estrategia Predictiva</h2>
+        <div class="content-area"><div class="two-column"><div><h3 style="color: #11caa0; font-size: 52px;">No necesariamente.</h3><p style="font-size: 28px; color: #334155;">Podemos predecir el comportamiento basándonos en los conceptos <strong>ácido-base</strong> y el valor de <strong>pKa</strong>.</p></div><div style="text-align: center;"><i class="fa-solid fa-brain" style="color: #005088; font-size: 200px; opacity: 0.1;"></i></div></div></div>
+    </div>
+    <div class="slide-container">
+        <h2 class="slide-title">pH = pKa₁</h2>
+        <div class="content-area">
+            <p style="text-align: center; font-size: 26px; margin-bottom: 50px;">Mezcla equitativa de especies:</p>
+            <div style="width: 100%; max-width: 900px;"><div style="display: flex; align-items: center; margin-bottom: 25px;"><div style="width: 350px; font-weight: 700; color: #005088; text-align: right; padding-right: 20px; font-size: 22px;">Especie A (Protonada)</div><div style="flex-grow: 1; background: #d1d5db; height: 50px; border-radius: 25px; overflow: hidden;"><div style="width: 50%; background: #005088; height: 100%; color: white; display: flex; align-items: center; padding-left: 20px; font-weight: 700;">50%</div></div></div><div style="display: flex; align-items: center;"><div style="width: 350px; font-weight: 700; color: #11caa0; text-align: right; padding-right: 20px; font-size: 22px;">Especie B (Mono-desprot.)</div><div style="flex-grow: 1; background: #d1d5db; height: 50px; border-radius: 25px; overflow: hidden;"><div style="width: 50%; background: #11caa0; height: 100%; color: white; display: flex; align-items: center; padding-left: 20px; font-weight: 700;">50%</div></div></div></div>
+        </div>
+    </div>
+    <div class="slide-container"><h2 class="slide-title">Región pH &lt; pKa₁</h2><div class="content-area"><div class="two-column"><div style="background: white; border-radius: 20px; padding: 50px; text-align: center; border-top: 10px solid #005088; box-shadow: 0 4px 15px rgba(0,0,0,0.05);"><h1 style="color: #005088; font-size: 110px;">A</h1></div><p style="font-size: 32px; color: #334155;">Predomina la forma totalmente protonada.</p></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">pKa₁ &lt; pH &lt; pKa₂</h2><div class="content-area"><div class="two-column"><div style="background: white; border-radius: 20px; padding: 50px; text-align: center; border-top: 10px solid #11caa0; box-shadow: 0 4px 15px rgba(0,0,0,0.05);"><h1 style="color: #11caa0; font-size: 110px;">B</h1></div><p style="font-size: 32px; color: #334155;">Predomina la especie B. ¡Esto incluye pH = 5!</p></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">Región pH &gt; pKa₂</h2><div class="content-area"><div class="two-column"><div style="background: white; border-radius: 20px; padding: 50px; text-align: center; border-top: 10px solid #64748b; box-shadow: 0 4px 15px rgba(0,0,0,0.05);"><h1 style="color: #64748b; font-size: 110px;">C</h1></div><p style="font-size: 32px; color: #334155;">Predomina la estructura bi-desprotonada.</p></div></div></div>
+    
+    <div class="slide-container"><h2 class="slide-title">Curva de Distribución</h2><div class="content-area"><div class="image-wrapper" style="border:none; background:transparent;"><img src="Distribución de especies del ácido salicílico.png"></div></div></div>
+
+    <div class="slide-container" style="background: #005088; justify-content: center; align-items: center;">
+        <div class="content-area">
+            <h1 class="play-learn-text">Ahora juega y aprende</h1>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2 class="slide-title" style="font-size: 24px;">Juega con la barra de pH inferior y observa cómo cambia la proporción de las especies químicas.</h2>
+        <div class="content-area">
+            <div class="game-container">
+                <div class="image-stage">
+                    <img id="img-0" class="ph-image active" src="0_old.png"><img id="img-1" class="ph-image" src="1_old.png"><img id="img-2" class="ph-image" src="2_old.png"><img id="img-3" class="ph-image" src="2_90_old.png"><img id="img-4" class="ph-image" src="3_old.png"><img id="img-5" class="ph-image" src="4_old.png"><img id="img-6" class="ph-image" src="5_old.png"><img id="img-7" class="ph-image" src="6_old.png"><img id="img-8" class="ph-image" src="7_old.png"><img id="img-9" class="ph-image" src="8_old.png"><img id="img-10" class="ph-image" src="9_old.png"><img id="img-11" class="ph-image" src="10_old.png"><img id="img-12" class="ph-image" src="11_old.png"><img id="img-13" class="ph-image" src="12_old.png"><img id="img-14" class="ph-image" src="13_old.png"><img id="img-15" class="ph-image" src="13_80_old.png"><img id="img-16" class="ph-image" src="14_old.png">
+                    <img id="structure-overlay" src="">
+                </div>
+                <div class="slider-container-game">
+                    <input type="range" id="ph-slider" class="game-slider" min="0" max="16" value="0" step="1">
+                    <div class="slider-labels" id="ph-labels-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container" style="background: linear-gradient(rgba(0, 80, 136, 0.9), rgba(0, 80, 136, 0.9)); justify-content: center; align-items: center; color: white;"><div class="content-area" style="text-align: center;"><h2 style="font-size: 60px; color: #11caa0; margin-bottom: 25px;">Modelo Generalizable</h2><p style="font-size: 32px; line-height: 1.5; max-width: 900px; opacity: 0.9;">Relación pH/pKa: Predicción científica universal sin depender exclusivamente del cálculo.</p></div></div>
+    <div class="slide-container"><h2 class="slide-title">Resumen de Estructuras</h2><div class="content-area"><div class="image-wrapper"><img src="resumen.png"></div></div></div>
+    <div class="slide-container"><h2 class="slide-title">Respuesta Definitiva: pH = 5</h2><div class="content-area"><div class="image-wrapper"><img src="respuesta_ph_5.png"></div></div></div>
+
+    <div class="slide-container">
+        <h2 class="slide-title">Aplicación Práctica: Caso Ibuprofeno</h2>
+        <div class="content-area">
+            <div class="two-column ibu-layout">
+                <div style="padding-right: 20px; align-self: flex-start;">
+                    <p class="ibu-large-text"><strong>El ibuprofeno</strong> es un fármaco que posee un grupo funcional ácido carboxílico con un <span class="ph-highlight">pKa = 4.4</span>.</p>
+                    <ul style="list-style: none;">
+                        <li class="ibu-item"><strong>a)</strong> Determine cuál es la estructura mayoritaria cuando el ibuprofeno se encuentra en el estómago a <strong>pH 2.0</strong>.</li>
+                        <li class="ibu-item ibu-item-alt"><strong>b)</strong> Determine la estructura química del ibuprofeno que se absorbe en el intestino delgado (<strong>pH promedio 6.1</strong>).</li>
+                    </ul>
+                </div>
+                <div class="ibu-image-box"><img src="ibuprofeno.png" alt="Estructura Ibuprofeno"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide-container');
+    const pageDisplay = document.getElementById('page-num');
+
+    function updatePage() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+        pageDisplay.innerText = `${currentSlide + 1} / ${slides.length}`;
+    }
+
+    function moveSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+        if (currentSlide >= slides.length) currentSlide = 0;
+        updatePage();
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "ArrowRight") moveSlide(1);
+        if (e.key === "ArrowLeft") moveSlide(-1);
+    });
+
+    // Lógica Nativa del Simulador
+    const slider = document.getElementById('ph-slider');
+    const labelsContainer = document.getElementById('ph-labels-container');
+    const overlay = document.getElementById('structure-overlay');
+    const phValores = ["0", "1", "2", "2,90", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "13,80", "14"];
+    const structureByImage = { 0: "estructura_mayoritaria_A.png", 1: "estructura_mayoritaria_A.png", 2: "estructura_mayoritaria_A.png", 3: "estructura_mayoritaria_A_y_B.png", 4: "estructura_mayoritaria_B.png", 5: "estructura_mayoritaria_B.png", 6: "estructura_mayoritaria_B.png", 7: "estructura_mayoritaria_B.png", 8: "estructura_mayoritaria_B.png", 9: "estructura_mayoritaria_B.png", 10: "estructura_mayoritaria_B.png", 11: "estructura_mayoritaria_B.png", 12: "estructura_mayoritaria_B.png", 13: "estructura_mayoritaria_B.png", 14: "estructura_mayoritaria_B.png", 15: "estructura_mayoritaria_B_y_C.png", 16: "estructura_mayoritaria_C.png" };
+
+    phValores.forEach((v, i) => {
+        const span = document.createElement('span');
+        span.textContent = v;
+        span.id = `label-${i}`;
+        if (i === 0) span.classList.add('active');
+        span.style.left = `calc(${(i / (phValores.length-1)) * 100}% + (${12 - (24 * i / (phValores.length-1))}px))`;
+        span.onclick = () => { slider.value = i; updateGame(i); };
+        labelsContainer.appendChild(span);
+    });
+
+    function updateGame(idx) {
+        document.querySelectorAll('.ph-image').forEach(img => img.classList.remove('active'));
+        document.querySelectorAll('.slider-labels span').forEach(l => l.classList.remove('active'));
+        if (document.getElementById(`img-${idx}`)) document.getElementById(`img-${idx}`).classList.add('active');
+        if (document.getElementById(`label-${idx}`)) document.getElementById(`label-${idx}`).classList.add('active');
+        if (structureByImage[idx]) {
+            overlay.src = structureByImage[idx];
+            overlay.style.display = 'block';
+            if (idx === 3 || idx === 15) overlay.classList.add('overlay-large');
+            else overlay.classList.remove('overlay-large');
+        } else overlay.style.display = 'none';
+    }
+    slider.oninput = (e) => updateGame(parseInt(e.target.value));
+
+    updatePage();
+</script>
+</body>
+</html>
