@@ -66,15 +66,136 @@
         .slider-labels span { position: absolute; font-weight: bold; color: #7f8c8d; font-size: 14px; transform: translateX(-50%); cursor: pointer; }
         .slider-labels span.active { color: #2980b9; font-size: 16px; }
 
+        /* COMPONENTE INTERACTIVO IBUPROFENO */
+        .ph-interactive-box {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 100%;
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #f9f9f9 !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+        .ph-display-screen {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .ph-display-screen img {
+            max-width: 100%;
+            max-height: 160px;
+            object-fit: contain;
+        }
+        .ph-instruction-text {
+            font-size: 15px;
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        .ph-slider-container {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        #ibu-ph-input {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #4299e1, #48bb78, #ecc94b, #f56565);
+            outline: none;
+            margin: 0;
+            cursor: pointer;
+        }
+        #ibu-ph-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #2b6cb0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            cursor: grab;
+        }
+        .ph-axis-line-wrapper {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            margin-top: 5px;
+        }
+        .ph-base-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #cbd5e0;
+        }
+        .ph-axis-ticks {
+            position: relative;
+            width: 100%;
+        }
+        .ph-single-tick {
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .ph-tick-bar {
+            width: 2px;
+            height: 10px;
+            background-color: #718096;
+        }
+        .ph-pka-bar {
+            background-color: #e53e3e;
+            height: 14px;
+            width: 3px;
+        }
+        .ph-tick-num {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-top: 6px;
+          }
+        .ph-pka-num {
+            color: #e53e3e;
+            font-weight: 700;
+        }
+        .ph-readout-box {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        #ibu-ph-numeric {
+            padding: 2px 8px;
+            background-color: #edf2f7;
+            border-radius: 4px;
+            color: #2b6cb0;
+        }
+
         /* BLOQUE ANTI-MODO OSCURO */
         :root {
             color-scheme: light only;
             supported-color-schemes: light;
         }
 
-        html,
-        body,
-        .presentation-container {
+        html, body, .presentation-container {
             background-color: #f3f0df !important;
             color: #111111;
             forced-color-adjust: none;
@@ -98,12 +219,7 @@
             color: #111111 !important;
         }
 
-        img,
-        canvas,
-        svg,
-        .image-wrapper img,
-        .ph-image,
-        #structure-overlay {
+        img, canvas, svg, .image-wrapper img, .ph-image, #structure-overlay {
             filter: none !important;
             opacity: 1 !important;
             mix-blend-mode: normal !important;
@@ -111,87 +227,18 @@
         }
 
         @media (prefers-color-scheme: dark) {
-            :root {
-                color-scheme: light only;
-            }
-
-            html,
-            body,
-            .presentation-container {
-                background-color: #f3f0df !important;
-                color: #111111 !important;
-            }
-
-            .slide-container:not([style*="background"]) {
-                background-color: #f3f0df !important;
-            }
-
-            .image-wrapper:not([style*="transparent"]),
-            .game-container {
-                background-color: #ffffff !important;
-                color: #111111 !important;
-            }
-
-            img,
-            canvas,
-            svg,
-            .image-wrapper img,
-            .ph-image,
-            #structure-overlay {
-                filter: none !important;
-                opacity: 1 !important;
-                mix-blend-mode: normal !important;
-                background-blend-mode: normal !important;
-            }
+            :root { color-scheme: light only; }
+            html, body, .presentation-container { background-color: #f3f0df !important; color: #111111 !important; }
+            .slide-container:not([style*="background"]) { background-color: #f3f0df !important; }
+            .image-wrapper:not([style*="transparent"]), .game-container { background-color: #ffffff !important; color: #111111 !important; }
+            img, canvas, svg, .image-wrapper img, .ph-image, #structure-overlay { filter: none !important; opacity: 1 !important; mix-blend-mode: normal !important; background-blend-mode: normal !important; }
         }
 
-        html {
-            color-scheme: only light !important;
-            background: #f3f0df !important;
-        }
-
-        body {
-            color-scheme: only light !important;
-            background: #f3f0df !important;
-            filter: none !important;
-            opacity: 1 !important;
-            mix-blend-mode: normal !important;
-        }
-
-        .presentation-container,
-        .slide-container,
-        .content-area,
-        .two-column,
-        .image-wrapper,
-        .game-container,
-        .image-stage {
-            filter: none !important;
-            opacity: 1 !important;
-            mix-blend-mode: normal !important;
-            background-blend-mode: normal !important;
-            -webkit-filter: none !important;
-        }
-
-        picture,
-        img,
-        video,
-        canvas,
-        svg {
-            -webkit-filter: none !important;
-            filter: none !important;
-            opacity: 1 !important;
-            mix-blend-mode: normal !important;
-            background-blend-mode: normal !important;
-            isolation: isolate !important;
-        }
-
-        html[data-darkreader-mode],
-        html[data-darkreader-scheme],
-        html[class*="dark"],
-        body[class*="dark"] {
-            color-scheme: only light !important;
-            background: #f3f0df !important;
-        }
+        html { color-scheme: only light !important; background: #f3f0df !important; }
+        body { color-scheme: only light !important; background: #f3f0df !important; filter: none !important; opacity: 1 !important; mix-blend-mode: normal !important; }
+        .presentation-container, .slide-container, .content-area, .two-column, .image-wrapper, .game-container, .image-stage { filter: none !important; opacity: 1 !important; mix-blend-mode: normal !important; background-blend-mode: normal !important; -webkit-filter: none !important; }
+        picture, img, video, canvas, svg { -webkit-filter: none !important; filter: none !important; opacity: 1 !important; mix-blend-mode: normal !important; background-blend-mode: normal !important; isolation: isolate !important; }
+        html[data-darkreader-mode], html[data-darkreader-scheme], html[class*="dark"], body[class*="dark"] { color-scheme: only light !important; background: #f3f0df !important; }
     </style>
 
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
@@ -346,66 +393,34 @@
             </div>
         </div>
     </div>
-<div class="slide-container">
-   <h2 class="slide-title">Aplicación Práctica: Caso Ibuprofeno</h2>
-   <div class="content-area">
-      <div class="two-column ibu-layout">
-         <div style="padding-right: 20px; align-self: flex-start;">
-            <p class="ibu-large-text"><strong>El ibuprofeno</strong> es un fármaco...</p>
-            <ul style="list-style: none;">
-               <li class="ibu-item"><strong>a)</strong> Determine cuál es...</li>
-               <li class="ibu-item ibu-item-alt"><strong>b)</strong> Determine la estructura...</li>
-            </ul>
-         </div>
-         <div class="ibu-image-box"><img src="ibuprofeno.png" alt="Estructura Ibuprofeno"></div>
-      </div>
-   </div>
-</div> <div class="slide-container">
-  <h2 class="slide-title">Especiación Interactiva: Ibuprofeno</h2>
-  <div class="content-area">
-    <div class="ph-interactive-box">
-      
-      <div class="ph-display-screen">
-        <img id="ibu-interactive-img" src="ibu_prot.png" alt="Estructura química">
-      </div>
 
-      <h3 class="ph-instruction-text">
-        Mueve la escala de pH para ver la(s) estructura(s) mayoritarias al pH que deseas analizar
-      </h3>
-
-      <div class="ph-slider-container">
-        <input type="range" id="ibu-ph-input" min="0" max="14" step="0.1" value="0" oninput="changeIbuPH(this.value)">
-      </div>
-
-      <div class="ph-axis-line-wrapper">
-        <div class="ph-base-line"></div>
-        <div class="ph-axis-ticks">
-          <div class="ph-single-tick" style="left: 0%;"><span class="ph-tick-bar"></span><span class="ph-tick-num">0</span></div>
-          <div class="ph-single-tick" style="left: 31.42%;"><span class="ph-tick-bar ph-pka-bar"></span><span class="ph-tick-num ph-pka-num">4.4</span></div>
-          <div class="ph-single-tick" style="left: 100%;"><span class="ph-tick-bar"></span><span class="ph-tick-num">14</span></div>
+    <div class="slide-container">
+        <h2 class="slide-title">Especiación Interactiva: Ibuprofeno</h2>
+        <div class="content-area">
+            <div class="ph-interactive-box">
+                <div class="ph-display-screen">
+                    <img id="ibu-interactive-img" src="ibu_prot.png" alt="Estructura química">
+                </div>
+                <h3 class="ph-instruction-text">
+                    Mueve la escala de pH para ver la(s) estructura(s) mayoritarias al pH que deseas analizar
+                </h3>
+                <div class="ph-slider-container">
+                    <input type="range" id="ibu-ph-input" min="0" max="14" step="0.1" value="0" oninput="changeIbuPH(this.value)">
+                </div>
+                <div class="ph-axis-line-wrapper">
+                    <div class="ph-base-line"></div>
+                    <div class="ph-axis-ticks">
+                        <div class="ph-single-tick" style="left: 0%;"><span class="ph-tick-bar"></span><span class="ph-tick-num">0</span></div>
+                        <div class="ph-single-tick" style="left: 31.42%;"><span class="ph-tick-bar ph-pka-bar"></span><span class="ph-tick-num ph-pka-num">4.4</span></div>
+                        <div class="ph-single-tick" style="left: 100%;"><span class="ph-tick-bar"></span><span class="ph-tick-num">14</span></div>
+                    </div>
+                </div>
+                <div class="ph-readout-box">pH Actual: <span id="ibu-ph-numeric">0.0</span></div>
+            </div>
         </div>
-      </div>
-
-      <div class="ph-readout-box">pH Actual: <span id="ibu-ph-numeric">0.0</span></div>
     </div>
-  </div>
-</div>
 
-<style>
-  /* ... Todos los estilos CSS que te pasé en la respuesta anterior ... */
-</style>
-
-<script>
-  /* ... Toda la lógica JavaScript que te pasé en la respuesta anterior ... */
-</script>
-</div> 
-<script>
-   let currentSlide = 0;
-   const slides = document.querySelectorAll('.slide-container');
-   // ... el resto de tu script original hacia abajo
-</div>
-
-<script>
+</div> <script>
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide-container');
     const pageDisplay = document.getElementById('page-num');
@@ -443,7 +458,9 @@
 
     function updatePage() {
         slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
-        pageDisplay.innerText = `${currentSlide + 1} / ${slides.length}`;
+        if (pageDisplay) {
+            pageDisplay.innerText = `${currentSlide + 1} / ${slides.length}`;
+        }
         forceLightRendering();
 
         const grafico = document.getElementById('grafico-distribucion-salicilico');
@@ -464,7 +481,32 @@
         if (e.key === "ArrowLeft") moveSlide(-1);
     });
 
-    // Lógica nativa del simulador de pH
+    // Lógica interactiva del Ibuprofeno
+    function changeIbuPH(val) {
+        const ph = parseFloat(val).toFixed(1);
+        const imgElement = document.getElementById('ibu-interactive-img');
+        const readoutElement = document.getElementById('ibu-ph-numeric');
+        
+        if (readoutElement) readoutElement.textContent = ph;
+
+        if (imgElement) {
+            if (ph < 4.4) {
+                if (imgElement.getAttribute('src') !== 'ibu_prot.png') {
+                    imgElement.src = 'ibu_prot.png';
+                }
+            } else if (ph === '4.4') {
+                if (imgElement.getAttribute('src') !== 'ibu_al_pka.png') {
+                    imgElement.src = 'ibu_al_pka.png';
+                }
+            } else { 
+                if (imgElement.getAttribute('src') !== 'ibu_deprot.png') {
+                    imgElement.src = 'ibu_deprot.png';
+                }
+            }
+        }
+    }
+
+    // Lógica nativa del simulador de pH (Ácido Salicílico)
     const slider = document.getElementById('ph-slider');
     const labelsContainer = document.getElementById('ph-labels-container');
     const overlay = document.getElementById('structure-overlay');
@@ -533,187 +575,51 @@
     // Gráfico interactivo: distribución ácido-base del ácido salicílico
     (function crearGraficoDistribucionSalicilico() {
         const contenedor = document.getElementById("grafico-distribucion-salicilico");
-        if (!contenedor || typeof Plotly === "undefined") return;
+        if (!contenedor || typeof Plotly === 'undefined') return;
 
-        const pKa1 = 2.90;
-        const pKa2 = 13.80;
+        const phArray = [];
+        for (let i = 0; i <= 14; i += 0.05) phArray.push(i);
 
-        const Ka1 = Math.pow(10, -pKa1);
-        const Ka2 = Math.pow(10, -pKa2);
+        const k1 = Math.pow(10, -2.90);
+        const k2 = Math.pow(10, -13.80);
 
-        const pH = [];
-        const A = [];
-        const B = [];
-        const C = [];
+        const f_especieA = [];
+        const f_especieB = [];
+        const f_especieC = [];
 
-        for (let i = 0; i <= 1400; i++) {
-            const ph = i / 100;
-            const H = Math.pow(10, -ph);
-            const denominador = Math.pow(H, 2) + Ka1 * H + Ka1 * Ka2;
-
-            const alphaA = 100 * Math.pow(H, 2) / denominador;
-            const alphaB = 100 * Ka1 * H / denominador;
-            const alphaC = 100 * Ka1 * Ka2 / denominador;
-
-            pH.push(Number(ph.toFixed(2)));
-            A.push(alphaA);
-            B.push(alphaB);
-            C.push(alphaC);
-        }
-
-        const nombresBase = [
-            "A: ácido 2-hidroxibenzoico",
-            "B: 2-hidroxibenzoato",
-            "C: 2-oxidobenzoato"
-        ];
-
-        function formatoPorcentaje(valor) {
-            return valor.toFixed(2) + "%";
-        }
+        phArray.forEach(ph => {
+            const h = Math.pow(10, -ph);
+            const denominador = (h * h) + (k1 * h) + (k1 * k2);
+            f_especieA.push(((h * h) / denominador) * 100);
+            f_especieB.push(((k1 * h) / denominador) * 100);
+            f_especieC.push(((k1 * k2) / denominador) * 100);
+        });
 
         const datos = [
-            {
-                x: pH,
-                y: A,
-                mode: "lines",
-                name: nombresBase[0],
-                line: { color: "#2f9bff", width: 4, shape: "spline", smoothing: 1.15 },
-                hovertemplate: "A: %{y:.2f}%<extra></extra>"
-            },
-            {
-                x: pH,
-                y: B,
-                mode: "lines",
-                name: nombresBase[1],
-                line: { color: "#38c976", width: 4, shape: "spline", smoothing: 1.15 },
-                hovertemplate: "B: %{y:.2f}%<extra></extra>"
-            },
-            {
-                x: pH,
-                y: C,
-                mode: "lines",
-                name: nombresBase[2],
-                line: { color: "#ff7b3f", width: 4, shape: "spline", smoothing: 1.15 },
-                hovertemplate: "C: %{y:.2f}%<extra></extra>"
-            }
+            { x: phArray, y: f_especieA, name: 'Especie A (Protonada)', type: 'scatter', mode: 'lines', line: { color: '#005088', width: 3 } },
+            { x: phArray, y: f_especieB, name: 'Especie B (Mono-desprot.)', type: 'scatter', mode: 'lines', line: { color: '#11caa0', width: 3 } },
+            { x: phArray, y: f_especieC, name: 'Especie C (Bi-desprot.)', type: 'scatter', mode: 'lines', line: { color: '#64748b', width: 3 } }
         ];
 
-        const layout = {
-            title: {
-                text: "Distribución de especies del ácido salicílico",
-                x: 0.02,
-                xanchor: "left",
-                font: { size: 22, color: "#111827" }
-            },
-            annotations: [
-                {
-                    text: "Abundancia relativa de ácido 2-hidroxibenzoico (A), 2-hidroxibenzoato (B) y 2-oxidobenzoato (C) en función del pH.",
-                    x: 0.02,
-                    y: 1.08,
-                    xref: "paper",
-                    yref: "paper",
-                    showarrow: false,
-                    xanchor: "left",
-                    font: { size: 15, color: "#6b7280" }
-                }
-            ],
-            hovermode: "x unified",
-            margin: { l: 70, r: 30, t: 90, b: 82 },
-            paper_bgcolor: "white",
-            plot_bgcolor: "white",
-            xaxis: {
-                title: { text: "pH", standoff: 18 },
-                range: [-0.25, 14.25],
-                dtick: 1,
-                zeroline: false,
-                showgrid: false,
-                tickfont: { size: 14, color: "#7a7f87" }
-            },
-            yaxis: {
-                title: { text: "Abundancia relativa (%)", standoff: 18 },
-                range: [0, 120],
-                dtick: 30,
-                ticksuffix: "%",
-                zeroline: false,
-                gridcolor: "#edf0f4",
-                griddash: "dot",
-                tickfont: { size: 14, color: "#7a7f87" }
-            },
-            legend: {
-                orientation: "h",
-                x: 0.5,
-                y: -0.16,
-                xanchor: "center",
-                yanchor: "top",
-                font: { size: 15 },
-                itemsizing: "constant"
-            },
-            hoverlabel: {
-                bgcolor: "white",
-                bordercolor: "#d1d5db",
-                font: { color: "#111827", size: 14 }
-            }
+        const configuracionLayout = {
+            title: { text: 'Distribución de Especies de Ácido Salicílico', font: { family: 'Merriweather', size: 22, color: '#005088' } },
+            xaxis: { title: 'pH', dtick: 1, range: [0, 14], gridcolor: '#e2e8f0' },
+            yaxis: { title: 'Fracción de Especie (%)', range: [0, 105], gridcolor: '#e2e8f0' },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            hovermode: 'x unified',
+            margin: { l: 60, r: 40, t: 60, b: 60 }
         };
 
-        const config = {
-            responsive: true,
-            displaylogo: false,
-            modeBarButtonsToRemove: ["lasso2d", "select2d"]
-        };
-
-        Plotly.newPlot(contenedor, datos, layout, config);
-
-        function indiceMasCercano(valorX) {
-            let indice = 0;
-            let diferenciaMinima = Infinity;
-
-            for (let i = 0; i < pH.length; i++) {
-                const diferencia = Math.abs(pH[i] - valorX);
-                if (diferencia < diferenciaMinima) {
-                    diferenciaMinima = diferencia;
-                    indice = i;
-                }
-            }
-
-            return indice;
-        }
-
-        function actualizarLeyenda(indice) {
-            Plotly.restyle(
-                contenedor,
-                {
-                    name: [
-                        `A: ${formatoPorcentaje(A[indice])}`,
-                        `B: ${formatoPorcentaje(B[indice])}`,
-                        `C: ${formatoPorcentaje(C[indice])}`
-                    ]
-                },
-                [0, 1, 2]
-            );
-        }
-
-        contenedor.on("plotly_hover", function (eventData) {
-            const valorX = eventData.points[0].x;
-            const indice = indiceMasCercano(valorX);
-            actualizarLeyenda(indice);
-        });
-
-        contenedor.on("plotly_unhover", function () {
-            Plotly.restyle(contenedor, { name: nombresBase }, [0, 1, 2]);
-        });
-
-        window.addEventListener("resize", function () {
-            Plotly.Plots.resize(contenedor);
-        });
+        Plotly.newPlot(contenedor, datos, configuracionLayout, { displayModeBar: false });
     })();
 
-    forceLightRendering();
-    window.addEventListener('load', forceLightRendering);
-    window.addEventListener('pageshow', forceLightRendering);
-    setTimeout(forceLightRendering, 300);
-    setTimeout(forceLightRendering, 1200);
-
-    updatePage();
+    // Ejecuciones iniciales seguras al cargar la ventana
+    window.addEventListener("load", function() {
+        updatePage();
+        const ibuSlider = document.getElementById('ibu-ph-input');
+        if(ibuSlider) changeIbuPH(ibuSlider.value);
+    });
 </script>
 
 </body>
