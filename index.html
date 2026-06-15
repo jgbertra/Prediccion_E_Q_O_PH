@@ -346,228 +346,62 @@
             </div>
         </div>
     </div>
-<div class="ph-container">
-  
-  <div class="ph-image-display">
-    <img id="ph-structure-img" src="ibu_prot.png" alt="Estructura química según el pH">
-  </div>
-
-  <h3 class="ph-instruction-title">
-    Mueve la escala de pH para ver la(s) estructura(s) mayoritarias al pH que deseas analizar
-  </h3>
-
-  <div class="ph-slider-wrapper">
-    <input 
-      type="range" 
-      id="ph-input" 
-      min="0" 
-      max="14" 
-      step="0.1" 
-      value="0"
-      oninput="updatePHComponent(this.value)"
-    >
-  </div>
-
-  <div class="ph-axis-container">
-    <div class="ph-axis-line"></div>
-    <div class="ph-ticks">
-      <div class="ph-tick" style="left: 0%;">
-        <span class="ph-tick-mark"></span>
-        <span class="ph-tick-label">0</span>
+<div class="slide-container">
+   <h2 class="slide-title">Aplicación Práctica: Caso Ibuprofeno</h2>
+   <div class="content-area">
+      <div class="two-column ibu-layout">
+         <div style="padding-right: 20px; align-self: flex-start;">
+            <p class="ibu-large-text"><strong>El ibuprofeno</strong> es un fármaco...</p>
+            <ul style="list-style: none;">
+               <li class="ibu-item"><strong>a)</strong> Determine cuál es...</li>
+               <li class="ibu-item ibu-item-alt"><strong>b)</strong> Determine la estructura...</li>
+            </ul>
+         </div>
+         <div class="ibu-image-box"><img src="ibuprofeno.png" alt="Estructura Ibuprofeno"></div>
       </div>
-      <div class="ph-tick" style="left: 31.42%;"> <span class="ph-tick-mark ph-tick-pka"></span>
-        <span class="ph-tick-label ph-label-pka">4.4</span>
+   </div>
+</div> <div class="slide-container">
+  <h2 class="slide-title">Especiación Interactiva: Ibuprofeno</h2>
+  <div class="content-area">
+    <div class="ph-interactive-box">
+      
+      <div class="ph-display-screen">
+        <img id="ibu-interactive-img" src="ibu_prot.png" alt="Estructura química">
       </div>
-      <div class="ph-tick" style="left: 100%;">
-        <span class="ph-tick-mark"></span>
-        <span class="ph-tick-label">14</span>
+
+      <h3 class="ph-instruction-text">
+        Mueve la escala de pH para ver la(s) estructura(s) mayoritarias al pH que deseas analizar
+      </h3>
+
+      <div class="ph-slider-container">
+        <input type="range" id="ibu-ph-input" min="0" max="14" step="0.1" value="0" oninput="changeIbuPH(this.value)">
       </div>
+
+      <div class="ph-axis-line-wrapper">
+        <div class="ph-base-line"></div>
+        <div class="ph-axis-ticks">
+          <div class="ph-single-tick" style="left: 0%;"><span class="ph-tick-bar"></span><span class="ph-tick-num">0</span></div>
+          <div class="ph-single-tick" style="left: 31.42%;"><span class="ph-tick-bar ph-pka-bar"></span><span class="ph-tick-num ph-pka-num">4.4</span></div>
+          <div class="ph-single-tick" style="left: 100%;"><span class="ph-tick-bar"></span><span class="ph-tick-num">14</span></div>
+        </div>
+      </div>
+
+      <div class="ph-readout-box">pH Actual: <span id="ibu-ph-numeric">0.0</span></div>
     </div>
   </div>
-
-  <div class="ph-current-value">
-    pH Actual: <span id="ph-numeric-readout">0.0</span>
-  </div>
-
 </div>
 
 <style>
-  .ph-container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    box-sizing: border-box;
-  }
-
-  .ph-image-display {
-    width: 100%;
-    height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-
-  .ph-image-display img {
-    max-width: 100%;
-    max-height: 160px;
-    object-fit: contain;
-    transition: opacity 0.15s ease-in-out;
-  }
-
-  .ph-instruction-title {
-    font-size: 15px;
-    color: #4a5568;
-    text-align: center;
-    margin-bottom: 12px;
-    font-weight: 600;
-    line-height: 1.4;
-    padding: 0 10px;
-  }
-
-  .ph-slider-wrapper {
-    width: 100%;
-    margin-bottom: 8px;
-  }
-
-  /* Estilos para el input range (Barra de desplazamiento) */
-  #ph-input {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 4px;
-    background: linear-gradient(to right, #4299e1, #48bb78, #ecc94b, #f56565);
-    outline: none;
-    margin: 0;
-    cursor: pointer;
-  }
-
-  #ph-input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #2b6cb0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    cursor: grab;
-    transition: transform 0.1s;
-  }
-
-  #ph-input::-webkit-slider-thumb:active {
-    cursor: grabbing;
-    transform: scale(1.15);
-  }
-
-  /* Regla graduada (Eje de pH) */
-  .ph-axis-container {
-    position: relative;
-    width: 100%;
-    height: 40px;
-    margin-top: 5px;
-  }
-
-  .ph-axis-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #cbd5e0;
-  }
-
-  .ph-ticks {
-    position: relative;
-    width: 100%;
-  }
-
-  .ph-tick {
-    position: absolute;
-    top: 0;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .ph-tick-mark {
-    width: 2px;
-    height: 10px;
-    background-color: #718096;
-  }
-
-  .ph-tick-pka {
-    background-color: #e53e3e;
-    height: 14px;
-    width: 3px;
-  }
-
-  .ph-tick-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #4a5568;
-    margin-top: 6px;
-  }
-
-  .ph-label-pka {
-    color: #e53e3e;
-    font-weight: 700;
-  }
-
-  .ph-current-value {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #2d3748;
-  }
-
-  #ph-numeric-readout {
-    padding: 2px 8px;
-    background-color: #edf2f7;
-    border-radius: 4px;
-    color: #2b6cb0;
-  }
+  /* ... Todos los estilos CSS que te pasé en la respuesta anterior ... */
 </style>
 
 <script>
-  function updatePHComponent(val) {
-    const ph = parseFloat(val).toFixed(1);
-    
-    const imgElement = document.getElementById('ph-structure-img');
-    const readoutElement = document.getElementById('ph-numeric-readout');
-    
-    readoutElement.textContent = ph;
-
-    if (ph < 4.4) {
-      if (imgElement.getAttribute('src') !== 'ibu_prot.png') {
-        imgElement.src = 'ibu_prot.png';
-      }
-    } else if (ph === '4.4') {
-      if (imgElement.getAttribute('src') !== 'ibu_al_pka.png') {
-        imgElement.src = 'ibu_al_pka.png';
-      }
-    } else { 
-      if (imgElement.getAttribute('src') !== 'ibu_deprot.png') {
-        imgElement.src = 'ibu_deprot.png';
-      }
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    const slider = document.getElementById('ph-input');
-    if(slider) updatePHComponent(slider.value);
-  });
+  /* ... Toda la lógica JavaScript que te pasé en la respuesta anterior ... */
 </script>
+</div> <script>
+   let currentSlide = 0;
+   const slides = document.querySelectorAll('.slide-container');
+   // ... el resto de tu script original hacia abajo
 </div>
 
 <script>
